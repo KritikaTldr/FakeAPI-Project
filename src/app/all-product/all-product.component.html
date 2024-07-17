@@ -29,9 +29,14 @@
                 <h2>{{ product.title | truncate:12 | titlecase }}</h2>
                 <p class="price">$ {{ product.price }}</p>
             </div>
-            <p class="rating">
-                <i class="fa-solid fa-star" style="color: #ffff00; margin: 0; padding: 0;"></i>  {{ product.rating.rate }} ({{ product.rating.count }})
-            </p>
+            <div class="prodR">
+                <p class="rating">
+                    <i class="fa-solid fa-star" style="color: #ffff00; margin: 0; padding: 0;"></i>  {{ product.rating.rate }} ({{ product.rating.count }})
+                </p>
+                <p class="cart">
+                    <i class="fa-solid fa-cart-shopping fa-lg" style="color: #000000;"></i>
+                </p>
+            </div>
         </div>
     </div>
 </div>
