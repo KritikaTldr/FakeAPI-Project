@@ -9,31 +9,23 @@
     <title>Document</title>
 </head>
 <body>
-<div class="nav">
-    <div class="logo">
-        <p>BELLO</p>
-    </div>
-    <div class="navBtn">
-        <button>Login</button>
-        <button>SignUp</button>
-    </div>
-</div>
+
 <div class="main">
     <div class="mainContent">
         <h1>Welcome to BELLO!</h1>
     </div>
     <div class="allProduct">
-        <div *ngFor="let product of products" class="prodCard">
+        <div *ngFor="let product of products" class="prodCard" (click)="productDetails(product.id)">
             <img src="{{product.image}}" alt="{{ product.title }}" class="prodImg">
             <div class="prodInfo">
-                <h2>{{ product.title | truncate:12 | titlecase }}</h2>
+                <h2>{{ product.title | truncate:15 | titlecase }}</h2>
                 <p class="price">$ {{ product.price }}</p>
             </div>
             <div class="prodR">
                 <p class="rating">
-                    <i class="fa-solid fa-star" style="color: #ffff00; margin: 0; padding: 0;"></i>  {{ product.rating.rate }} ({{ product.rating.count }})
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>  {{ product.rating.rate }} ({{ product.rating.count }})
                 </p>
-                <p class="cart">
+                <p class="cart"  (click)="addtocart(product)" >
                     <i class="fa-solid fa-cart-shopping fa-lg" style="color: #000000;"></i>
                 </p>
             </div>
