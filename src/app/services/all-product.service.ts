@@ -1,18 +1,17 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, map} from 'rxjs';
-import { Product } from '../interface/product.interface';
-
+import {Product} from '../interface/product.interface';
+import Swal from "sweetalert2";
 @Injectable({
     providedIn: 'root'
 })
 
 export class AllProduct {
     private productUrl = 'https://fakestoreapi.com/products';
-    public cartItemList: any= [];
+    public cartItemList: any = [];
     public productTotalCartItems = new BehaviorSubject<any>([]);
     constructor(private http: HttpClient) {
-
     }
 
     getAllProduct() {
@@ -20,41 +19,50 @@ export class AllProduct {
             map((res) => res)
         );
     }
-
     getProductById(id: string | null) {
         return this.http.get<Product>(`${this.productUrl}/${id}`);
     }
 
-    getItemProduct(){
+    getItemProduct() {
         return this.productTotalCartItems.asObservable();
     }
 
-    setItemProduct(product: any){
+    setItemProduct(product: any) {
         this.cartItemList.push(...product);
         this.productTotalCartItems.next(product);
     }
 
 
-    addToCart(product: any){
-        this.cartItemList.push(product);
-        this.productTotalCartItems.next(this.cartItemList);
-        this.getTotalPrice();
-        console.log(this.cartItemList)
+    addToCart(product: any) {
+        if (!this.itemExists([product.id])) {
+            this.cartItemList.push(product);
+            this.productTotalCartItems.next(this.cartItemList);
+            Swal.fire('Product successfully added to your cart.', 'Happy Shopping!!!', 'success');
+            this.getTotalPrice();
+            console.log('Product added to cart:', this.cartItemList);
+        } else {
+            console.log('Product already exists in cart:', product);
+            alert('Product already exists in cart!!!');
+        }
     }
 
-    getTotalPrice(){
-        let grandTotal =0;
-        this.cartItemList.map((a: any) =>{
+    getTotalPrice() {
+        let grandTotal = 0;
+        this.cartItemList.map((a: any) => {
             grandTotal += a.total;
         })
     }
 
-    removeFromCart(product: any){
-        this.cartItemList.map((a: any, index:any)=>{
-            if(product.id===a.id){
-                this.cartItemList.splice(index, 1);
-            }
-        })
+    removeFromCart(productIds: number[]) {
+        console.log(productIds);
+        this.cartItemList = this.cartItemList.filter((item: any) => !productIds.includes(item.id));
+        this.productTotalCartItems.next(this.cartItemList);
+        console.log(this.cartItemList);
     }
+
+    itemExists(productIds: number[]): boolean {
+        return this.cartItemList.some((item: any) => productIds.includes(item.id));
+    }
+
 
 }

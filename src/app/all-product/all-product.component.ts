@@ -5,7 +5,7 @@ import {Product} from "../interface/product.interface";
 import {TruncatePipe} from '../pipes/truncate.pipe';
 import {NavbarComponent} from "../navbar/navbar.component";
 import {Router, RouterLink} from '@angular/router';
-
+import {AuthService} from "../services/auth.serivice";
 
 @Component({
     selector: 'app-all-product',
@@ -24,10 +24,12 @@ import {Router, RouterLink} from '@angular/router';
 export class AllProductComponent implements OnInit {
     products: Product[] = []
 
+
     constructor(
         private allProduct: AllProduct,
         private router: Router,
         private _service: AllProduct,
+        private authService: AuthService
     ) {
     }
 
@@ -48,14 +50,14 @@ export class AllProductComponent implements OnInit {
         this.router.navigate(['/product/', id])
     }
 
-    // navigate() {
-    //     alert('Product added to cart successfully')
-    //         this.router.navigate(['/cart']).then()
-    // }
-
-    addtocart(product: any) {
-        this._service.addToCart(product);
-        alert('Product added to cart successfully');
-        this.router.navigate(['/cart']).then()
+    addtocart(product: any,event : any) {
+        event.stopPropagation()
+        if(this.authService.isLoggedIn()){
+            this._service.addToCart(product);
+        }
+       else{
+            alert('Please Login to add product to cart')
+            this.router.navigate(['/login']).then()
+        }
     }
 }
