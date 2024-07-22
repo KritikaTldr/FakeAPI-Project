@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+    <title>Document</title>
+</head>
+<body>
+<div class="arrow" (click)="navigate()">
+    <p><i class="fa-solid fa-arrow-left-long fa-sm" style="color: #000000; margin-right: 5px;"></i><span class="back">back</span></p>
+</div>
+<div class="prod">
+    <div class="image">
+        <img src="{{product.image}}" alt="{{ product.title }}" class="prodimage">
+    </div>
+    <div class="details">
+        <h1>{{ product.title | titlecase }}</h1>
+        <p>{{product.description}}</p>
+        <p class="price">${{ product.price }}</p>
+        <p><i class="fa-solid fa-star" style="color: #FFD43B;"></i> {{ product.rating.rate }} ({{ product.rating.count }})</p>
+        <div class="btn">
+            <div class="cart">
+                <button (click)="addtocart(product, $event)">Add to Cart</button>
+            </div>
+            <div class="checkout">
+                <button>Buy Now</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

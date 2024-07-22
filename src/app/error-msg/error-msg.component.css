@@ -1,0 +1,24 @@
+.error-container {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.error-container h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.error-container p {
+    font-size: 1.25rem;
+    margin-bottom: 20px;
+}
+
+.error-container a {
+    font-size: 1rem;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.error-container a:hover {
+    text-decoration: underline;
+}

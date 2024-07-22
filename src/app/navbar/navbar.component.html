@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+</head>
+<body>
+<div class="nav" >
+    <div class="logo" (click)="homePage()">
+        <p>BELLO</p>
+    </div>
+    <div class="navBtn">
+        <button (click)="loginPage()">Login</button>
+        <button (click)="signupPage()">SignUp</button>
+        <button  (click)="navigate()">
+            <i class="fa-solid fa-cart-shopping fa-flip-horizontal fa-lg" style="color: #ff6600"></i>
+            <div class="cart-count">5</div>
+        </button>
+    </div>
+</div>
+</body>
+</html>

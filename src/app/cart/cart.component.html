@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <title>Document</title>
+</head>
+<body>
+<ng-container *ngIf="products.length !=0">
+        <div class="card-table">
+            <div class="cart-product">
+                <table class="table table-responsive">
+                    <thead>
+                    <tr>
+                        <th>Product No.</th>
+                        <th>Product</th>
+                        <th>Image</th>
+                        <th>Price</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let item of products; let i = index">
+                        <td>
+                            <input type="checkbox" [(ngModel)]="item.checked">
+                            <span class="item-id">{{ item.id }}</span>
+                        </td>
+                        <td>{{ item.title }}</td>
+                        <td><img style="width: 120px " src="{{item.image}}" alt="image"></td>
+                        <td>${{ item.price }}</td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="btn">
+            <button class="checkoutBtn">
+                Checkout
+            </button>
+            <button class="deleteBtn" (click)="removeItem()">
+                Delete
+            </button>
+        </div>
+</ng-container>
+
+<ng-container *ngIf="products.length == 0 ">
+    <div class="mainCart">
+        <div class="noItemsCart">
+            <img src="https://res.cloudinary.com/joinventures/raw/upload/propshop24/assets/svg-icons/revamp-empty-cart_1666.svg"
+                 alt="no-items" class="noItem">
+            <p>No items in cart!! <a href="/" class="shop">Shop now</a></p>
+        </div>
+    </div>
+</ng-container>
+</body>
+</html>

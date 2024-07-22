@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+</head>
+<body>
+<div class="topic">
+    <p>Welcome to Bello! Please login.</p>
+</div>
+<div class="container">
+    <div class="login form">
+        <header>Login</header>
+        <form  [formGroup]="LoginForm" >
+            <input type="text" placeholder="Enter your email"  formControlName="username">
+            <input type="password" placeholder="Enter your password" formControlName="password">
+            <input type="button" class="button" value="Login" (click)="onLogin()">
+        </form>
+        <div class="signup">
+            <span>Don't have an account? <label (click)="signupPage()">Signup</label></span>
+        </div>
+    </div>
+</div>
+</body>
+</html>
