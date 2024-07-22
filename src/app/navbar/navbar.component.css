@@ -11,11 +11,14 @@
     display: flex;
     align-items: center;
     margin: 0.9rem 1rem;
+    font-family: sans-serif;
+    gap: 10px;
 }
 
 .logo {
     font-size: 1rem;
     margin-left: 1rem;
+    cursor: pointer;
 }
 
 .navBtn button {
@@ -25,6 +28,7 @@
     color: white;
     position: relative;
     cursor: pointer;
+    font-size: 0.9em;
 }
 
 .navBtn i {

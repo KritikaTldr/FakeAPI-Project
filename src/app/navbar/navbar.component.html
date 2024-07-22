@@ -14,12 +14,28 @@
         <p>BELLO</p>
     </div>
     <div class="navBtn">
+<!---->
+<!--        <div *ngIf="isloggedIn" >-->
+<!--            logged in-->
+<!--        </div>-->
+<!---->
+<!--        <div *ngIf="!isloggedIn" >-->
+<!--            not logged in-->
+<!--        </div>-->
+
+
+        @if (!isloggedIn) {
         <button (click)="loginPage()">Login</button>
-        <button (click)="signupPage()">SignUp</button>
+          <button (click)="signupPage()">SignUp</button>
+        } @else {
+        <p>Hello, user</p>
         <button  (click)="navigate()">
             <i class="fa-solid fa-cart-shopping fa-flip-horizontal fa-lg" style="color: #ff6600"></i>
             <div class="cart-count">5</div>
         </button>
+        <button>Logout</button>
+        }
+
     </div>
 </div>
 </body>

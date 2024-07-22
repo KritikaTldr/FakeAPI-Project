@@ -1,23 +1,33 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {Router, RouterLink} from "@angular/router";
+import {AuthService} from "../services/auth.serivice";
+import {NgForOf, NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
     imports: [
-        RouterLink
+        RouterLink,
+        NgForOf,
+        NgIf
     ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
+  authService = inject(AuthService);
+  isloggedIn: boolean = this.authService.isLoggedIn();
 
   constructor(
-      private router: Router
+      private router: Router,
   ) {
   }
   navigate() {
-    this.router.navigate(['/cart']).then()
+    if(this.authService.isLoggedIn()){
+      this.router.navigate(['/cart']).then();
+    }else{
+      alert('Please login first')
+    }
   }
 
   homePage() {
@@ -30,6 +40,7 @@ export class NavbarComponent {
 
   signupPage(){
     this.router.navigate(['/sign-up']).then()
+
 
 }
 }

@@ -18,7 +18,7 @@
         <div *ngFor="let product of products" class="prodCard" (click)="productDetails(product.id)">
             <img src="{{product.image}}" alt="{{ product.title }}" class="prodImg">
             <div class="prodInfo">
-                <h2>{{ product.title | truncate:15 | titlecase }}</h2>
+                <h2>{{ product.title | truncate:22 | titlecase }}</h2>
                 <p class="price">$ {{ product.price }}</p>
             </div>
             <div class="prodR">

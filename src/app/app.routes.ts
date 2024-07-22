@@ -23,7 +23,7 @@ export const routes: Routes = [
     },
     {
         path: 'cart',
-        component: CartComponent
+        component: CartComponent,
     },
     {
         path: 'sign-up',
