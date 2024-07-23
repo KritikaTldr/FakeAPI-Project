@@ -26,6 +26,7 @@ export class AuthService {
         return this.http.post<any>(this.loginUrl,data);
     }
 
+    checkLogin = new BehaviorSubject<boolean>(false);
 
 
 

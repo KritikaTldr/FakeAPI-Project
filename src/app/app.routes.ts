@@ -5,6 +5,7 @@ import {ErrorMsgComponent} from "./error-msg/error-msg.component";
 import {CartComponent} from "./cart/cart.component";
 import {SignUpComponent} from "./sign-up/sign-up.component";
 import {LoginComponent} from "./login/login.component";
+import {AuthGuard} from "./guard/auth.guard";
 
 export const routes: Routes = [
     {
@@ -15,7 +16,7 @@ export const routes: Routes = [
     {
         path: 'all-product',
         component: AllProductComponent,
-        pathMatch: 'full'
+        pathMatch: 'full',
     },
     {
         path: 'product/:id',
@@ -24,6 +25,7 @@ export const routes: Routes = [
     {
         path: 'cart',
         component: CartComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'sign-up',

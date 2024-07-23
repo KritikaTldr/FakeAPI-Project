@@ -44,6 +44,7 @@ export class LoginComponent implements OnInit {
             next:(res) => {
                 console.log(res.token)
                 localStorage.setItem('token', res.token);
+                this._service.checkLogin.next(true);
                 alert('Login successful!')
                 this.router.navigate(['/']).then()
             },
