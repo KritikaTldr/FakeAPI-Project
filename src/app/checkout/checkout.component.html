@@ -8,42 +8,53 @@
     <title>Cart and Order Summary</title>
 </head>
 <body>
-<div class="container">
-    <div class="cart">
-        <table>
-            <thead>
-            <tr>
-                <th>Product No.</th>
-                <th>Product</th>
-                <th>Image</th>
-                <th>Price</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let item of selectedItems">
-                <td>{{ item.id }}</td>
-                <td>{{ item.title }}</td>
-                <td><img src="{{item.image}}" alt="image"></td>
-                <td>${{ item.price }}</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+<ng-container>
+    <div class="container" *ngIf="selectedItems.length != 0">
+        <div class="cart">
+            <table>
+                <thead>
+                <tr>
+                    <th>Product No.</th>
+                    <th>Product</th>
+                    <th>Image</th>
+                    <th>Price</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of selectedItems">
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.title }}</td>
+                    <td><img src="{{item.image}}" alt="image"></td>
+                    <td>${{ item.price }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
 
-    <div class="order-summary">
-        <h2>Order Summary</h2>
-        <div>
-            <p>Product Total: <span class="price">$30.00</span></p>
+        <div class="order-summary">
+            <h2>Order Summary</h2>
+            <div>
+                <p>Product Total: <span class="price">${{ totalPrice }}</span></p>
+            </div>
+            <div>
+                <p>Delivery Charge: <span class="price"> $10.00</span></p>
+            </div>
+            <hr>
+            <div>
+                <p class="total">Total: <span class="price">${{ totalPrice + 10 }}</span></p>
+            </div>
+            <button class="confirm" (click)="confirmOrder()">Confirm Order</button>
         </div>
-        <div>
-            <p>Delivery Charge: <span class="price"> $5.00</span></p>
-        </div>
-        <hr>
-        <div>
-            <p class="total">Total: <span class="price">$35.00</span></p>
-        </div>
-        <button class="confirm" (click)="confirmOrder()">Confirm Order</button>
     </div>
-</div>
+</ng-container>
+<ng-container *ngIf="selectedItems.length == 0 ">
+    <div class="mainCart">
+        <div class="noItemsCart">
+            <img src="https://res.cloudinary.com/joinventures/raw/upload/propshop24/assets/svg-icons/revamp-empty-cart_1666.svg"
+                 alt="no-items" class="noItem">
+            <p>Your cart is empty. Please add items to your cart <br> before proceeding to checkout. <a href="/" class="shop">Shop now</a></p>
+        </div>
+    </div>
+</ng-container>
 </body>
 </html>

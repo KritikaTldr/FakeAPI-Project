@@ -57,4 +57,8 @@ export class ProductDetailsComponent implements  OnInit{
     navigate() {
       this.router.navigate(['/']).then()
     }
+
+    buyNow(){
+      this.router.navigate(['checkout']).then()
+    }
 }

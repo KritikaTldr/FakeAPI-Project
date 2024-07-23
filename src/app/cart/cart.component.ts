@@ -15,25 +15,22 @@ export class CartComponent implements OnInit {
   public products: any[] = [];
 
   constructor(private allProduct: AllProduct,
-              private router: Router,
-              private _service: AllProduct) {}
+              private router: Router) {}
 
   ngOnInit() {
     this.getCartItemList();
   }
 
   private getCartItemList() {
-    this.products = this.getCartFromLocalStorage();
+    // this.products = this.getCartFromLocalStorage();
 
-    if (this.products.length === 0) {
-      this.allProduct.getItemProduct().subscribe((res: any) => {
-        this.products = res.map((product: any) => ({
-          ...product,
-          checked: false
-        }));
-        this.saveCartToLocalStorage();
-      });
-    }
+    this.allProduct.getItemProduct().subscribe((res: any) => {
+      this.products = res.map((product: any) => ({
+        ...product,
+        checked: false
+      }));
+      // this.saveCartToLocalStorage();
+    });
   }
 
   private saveCartToLocalStorage() {
@@ -56,8 +53,14 @@ export class CartComponent implements OnInit {
 
   checkoutPage() {
     const selectedItems = this.products.filter(item => item.checked);
-    this._service.setSelectedItems(selectedItems);
+    const idsToRemove: number[] = this.products
+        .filter((item: any) => item.checked)
+        .map((item: any) => item.id);
+    this.allProduct.removeFromCart(idsToRemove);
+    this.products = this.products.filter((item: any) => !item.checked);
+    this.allProduct.setSelectedItems(selectedItems);
     this.products = this.products.filter(item => !item.checked);
     this.router.navigate(['/checkout']).then();
+
   }
 }

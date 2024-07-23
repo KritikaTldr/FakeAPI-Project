@@ -1,3 +1,26 @@
+
+.mainCart{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5rem;
+}
+.noItem{
+    width: 300px;
+    height: auto;
+}
+.noItemsCart p{
+    text-align: center;
+}
+.shop{
+    color: #F96D00;
+    font-size: 1.3em;
+    text-decoration: none;
+}
+.shop:hover{
+    text-decoration: underline;
+}
+
 .container {
     display: flex;
     justify-content: space-between;
@@ -81,3 +104,4 @@
 .confirm:hover {
     background-color: #F96D00;
 }
+

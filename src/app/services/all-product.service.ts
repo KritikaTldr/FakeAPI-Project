@@ -38,7 +38,13 @@ export class AllProduct {
         if (!this.itemExists([product.id])) {
             this.cartItemList.push(product);
             this.productTotalCartItems.next(this.cartItemList);
-            Swal.fire('Product successfully added to your cart.', 'Happy Shopping!!!', 'success');
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Product successfully added to your cart!",
+                showConfirmButton: false,
+                timer: 1500
+            });
             this.getTotalPrice();
             console.log('Product added to cart:', this.cartItemList);
         } else {
@@ -65,12 +71,11 @@ export class AllProduct {
         return this.cartItemList.some((item: any) => productIds.includes(item.id));
     }
 
-    checkoutProduct(productIds: number[]){
-        console.log("this is selected items", productIds)
-    }
-
     setSelectedItems(items: any[]) {
         this.selectedItems = items;
+        this.cartItemList = this.cartItemList.filter((item: any) => !items.includes(item.id));
+        this.productTotalCartItems.next(this.cartItemList);
+
     }
 
     getSelectedItems() {
