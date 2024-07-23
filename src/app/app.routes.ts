@@ -6,6 +6,7 @@ import {CartComponent} from "./cart/cart.component";
 import {SignUpComponent} from "./sign-up/sign-up.component";
 import {LoginComponent} from "./login/login.component";
 import {AuthGuard} from "./guard/auth.guard";
+import {CheckoutComponent} from "./checkout/checkout.component";
 
 export const routes: Routes = [
     {
@@ -26,6 +27,10 @@ export const routes: Routes = [
         path: 'cart',
         component: CartComponent,
         canActivate: [AuthGuard]
+    },
+    {
+        path: 'checkout',
+        component: CheckoutComponent,
     },
     {
         path: 'sign-up',

@@ -11,6 +11,7 @@ export class AllProduct {
     private productUrl = 'https://fakestoreapi.com/products';
     public cartItemList: any = [];
     public productTotalCartItems = new BehaviorSubject<any>([]);
+    private selectedItems: any[] = [];
     constructor(private http: HttpClient) {
     }
 
@@ -54,7 +55,7 @@ export class AllProduct {
     }
 
     removeFromCart(productIds: number[]) {
-        console.log(productIds);
+        // console.log(productIds);
         this.cartItemList = this.cartItemList.filter((item: any) => !productIds.includes(item.id));
         this.productTotalCartItems.next(this.cartItemList);
         console.log(this.cartItemList);
@@ -64,5 +65,15 @@ export class AllProduct {
         return this.cartItemList.some((item: any) => productIds.includes(item.id));
     }
 
+    checkoutProduct(productIds: number[]){
+        console.log("this is selected items", productIds)
+    }
 
+    setSelectedItems(items: any[]) {
+        this.selectedItems = items;
+    }
+
+    getSelectedItems() {
+        return this.selectedItems;
+    }
 }
