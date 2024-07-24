@@ -58,7 +58,14 @@ export class ProductDetailsComponent implements  OnInit{
       this.router.navigate(['/']).then()
     }
 
-    buyNow(){
-      this.router.navigate(['checkout']).then()
+    buyNow(product: any){
+        if(this.authService.isLoggedIn()){
+            this._service.proceedCheckout(product);
+            this.router.navigate(['checkout']).then()
+        }
+        else{
+            alert('Please Login to buy product(s).')
+            this.router.navigate(['/login']).then()
+        }
     }
 }

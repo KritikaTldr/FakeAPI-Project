@@ -45,7 +45,6 @@ export class AllProduct {
                 showConfirmButton: false,
                 timer: 1500
             });
-            this.getTotalPrice();
             console.log('Product added to cart:', this.cartItemList);
         } else {
             console.log('Product already exists in cart:', product);
@@ -53,11 +52,8 @@ export class AllProduct {
         }
     }
 
-    getTotalPrice() {
-        let grandTotal = 0;
-        this.cartItemList.map((a: any) => {
-            grandTotal += a.total;
-        })
+    proceedCheckout(items: any){
+        this.selectedItems.push(items)
     }
 
     removeFromCart(productIds: number[]) {
@@ -71,14 +67,14 @@ export class AllProduct {
         return this.cartItemList.some((item: any) => productIds.includes(item.id));
     }
 
+    getSelectedItems() {
+        return this.selectedItems;
+    }
+
+
     setSelectedItems(items: any[]) {
         this.selectedItems = items;
         this.cartItemList = this.cartItemList.filter((item: any) => !items.includes(item.id));
         this.productTotalCartItems.next(this.cartItemList);
-
-    }
-
-    getSelectedItems() {
-        return this.selectedItems;
     }
 }

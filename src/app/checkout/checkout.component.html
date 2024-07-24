@@ -41,7 +41,7 @@
             </div>
             <hr>
             <div>
-                <p class="total">Total: <span class="price">${{ totalPrice + 10 }}</span></p>
+                <p class="total">Total: <span class="price">${{ totalPrice + 10 | truncate: 2}}</span></p>
             </div>
             <button class="confirm" (click)="confirmOrder()">Confirm Order</button>
         </div>

@@ -1,8 +1,9 @@
 import {Component, Input} from '@angular/core';
 import {AllProduct} from "../services/all-product.service";
 import {Router, RouterLink} from "@angular/router";
-import {NgForOf, NgIf} from "@angular/common";
+import {NgForOf, NgIf, SlicePipe} from "@angular/common";
 import Swal from "sweetalert2";
+import {TruncatePipe} from "../pipes/truncate.pipe";
 
 @Component({
   selector: 'app-checkout',
@@ -10,7 +11,9 @@ import Swal from "sweetalert2";
   imports: [
     RouterLink,
     NgForOf,
-    NgIf
+    NgIf,
+    SlicePipe,
+    TruncatePipe,
   ],
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.css'
@@ -26,10 +29,11 @@ export class CheckoutComponent {
   ngOnInit(): void {
     this.selectedItems = this._service.getSelectedItems();
     console.log(this.selectedItems)
-    this.calculateTotalPrice();
+    this.productTotalPrice();
   }
-  calculateTotalPrice(): void {
+  productTotalPrice(): void {
     this.totalPrice = this.selectedItems.reduce((sum, item) => sum + item.price, 0);
+    this.totalPrice = parseFloat(this.totalPrice.toFixed(2))
   }
 
   confirmOrder(){
