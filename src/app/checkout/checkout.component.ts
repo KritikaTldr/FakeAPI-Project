@@ -28,12 +28,12 @@ export class CheckoutComponent {
 
   ngOnInit(): void {
     this.selectedItems = this._service.getSelectedItems();
+    this.selectedItems.forEach((item) => {
+      this.totalPrice += item.price * item.quantity;
+      this.totalPrice = parseFloat(this.totalPrice.toFixed(2))
+    } )
     console.log(this.selectedItems)
-    this.productTotalPrice();
-  }
-  productTotalPrice(): void {
-    this.totalPrice = this.selectedItems.reduce((sum, item) => sum + item.price, 0);
-    this.totalPrice = parseFloat(this.totalPrice.toFixed(2))
+    // this.productTotalPrice();
   }
 
   confirmOrder(){

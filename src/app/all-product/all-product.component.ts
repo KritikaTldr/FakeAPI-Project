@@ -23,7 +23,7 @@ import {AuthService} from "../services/auth.serivice";
 })
 export class AllProductComponent implements OnInit {
     products: Product[] = []
-
+    quantity: number = 1;
 
     constructor(
         private allProduct: AllProduct,
@@ -50,14 +50,14 @@ export class AllProductComponent implements OnInit {
         this.router.navigate(['/product/', id])
     }
 
-    addtocart(product: any,event : any) {
-        event.stopPropagation()
-        if(this.authService.isLoggedIn()){
-            this._service.addToCart(product);
-        }
-       else{
-            alert('Please Login to add product to cart')
-            this.router.navigate(['/login']).then()
+    addtocart(product: any, event: any) {
+        event.stopPropagation();
+        if (this.authService.isLoggedIn()) {
+            const productQuantity = { ...product, quantity: this.quantity };
+            this._service.addToCart(productQuantity);
+        } else {
+            alert('Please log in to add product to cart');
+            this.router.navigate(['/login']).then();
         }
     }
 }

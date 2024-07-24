@@ -2,6 +2,7 @@ import {Component, inject, OnInit} from '@angular/core';
 import {Router, RouterLink} from "@angular/router";
 import {AuthService} from "../services/auth.serivice";
 import {NgForOf, NgIf} from "@angular/common";
+import {AllProduct} from "../services/all-product.service";
 
 @Component({
     selector: 'app-navbar',
@@ -17,16 +18,20 @@ import {NgForOf, NgIf} from "@angular/common";
 export class NavbarComponent implements OnInit {
     authService = inject(AuthService);
     isloggedIn: boolean = false;
-
+    public totalItem : number = 0;
 
     ngOnInit() {
         this.authService.checkLogin.subscribe((res) => {
             this.isloggedIn = this.authService.isLoggedIn();
         });
+        this._service.getItemProduct().subscribe(res=>{
+            this.totalItem = res.length;
+        })
     }
 
     constructor(
         private router: Router,
+        private _service: AllProduct,
     ) {
     }
 

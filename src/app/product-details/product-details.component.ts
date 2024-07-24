@@ -1,71 +1,98 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AllProduct } from '../services/all-product.service';
-import {Product} from "../interface/product.interface";
-import {NavbarComponent} from "../navbar/navbar.component";
-import {TitleCasePipe} from "@angular/common";
-import {AllProductComponent} from "../all-product/all-product.component";
-import {AuthService} from "../services/auth.serivice";
+import { Product } from "../interface/product.interface";
+import { NavbarComponent } from "../navbar/navbar.component";
+import { TitleCasePipe } from "@angular/common";
+import { AllProductComponent } from "../all-product/all-product.component";
+import { AuthService } from "../services/auth.serivice";
+import { FormsModule } from '@angular/forms';
+import { NgIf } from "@angular/common";
 
 @Component({
-  selector: 'app-product-details',
-  standalone: true,
+    selector: 'app-product-details',
+    standalone: true,
     imports: [
         NavbarComponent,
         TitleCasePipe,
-        AllProductComponent
+        AllProductComponent,
+        FormsModule,
+        NgIf
     ],
-  templateUrl: './product-details.component.html',
-  styleUrl: './product-details.component.css'
+    templateUrl: './product-details.component.html',
+    styleUrls: ['./product-details.component.css']
 })
-export class ProductDetailsComponent implements  OnInit{
- id! : string | null;
-  product!: Product;
+export class ProductDetailsComponent implements OnInit {
+    id!: string | null;
+    product!: Product;
+    quantity: number = 1; // Initial quantity
+    maxQuantity: number = 5;
+    message: string = '';
+    public products: any[] = [];
 
-  constructor(
-      private route: ActivatedRoute,
-      private router: Router,
-      private _service: AllProduct,
-      private authService: AuthService
-  ) { }
+    constructor(
+        private route: ActivatedRoute,
+        private router: Router,
+        private _service: AllProduct,
+        private authService: AuthService
+    ) {}
 
-  ngOnInit(): void {
-    this.id = this.route.snapshot.paramMap.get('id');
-    this._service.getProductById(this.id).subscribe({
-      next:(res) => {
-        console.log(res)
-        this.product = res;
-      },
-      error : (err) => {
-        console.log(err)
-      }
-    })
-  }
-
-    addtocart(product: any,event : any) {
-        event.stopPropagation()
-        if(this.authService.isLoggedIn()){
-            this._service.addToCart(product);
-            this.router.navigate(['/cart']).then()
+    ngOnInit(): void {
+        this.id = this.route.snapshot.paramMap.get('id');
+        if (this.id) {
+            this._service.getProductById(this.id).subscribe({
+                next: (res) => {
+                    this.product = res;
+                },
+                error: (err) => {
+                    console.error(err);
+                }
+            });
         }
-        else{
-            alert('Please Login to add product to cart')
-            this.router.navigate(['/login']).then()
+    }
+
+    addtocart(product: any, event: any) {
+        event.stopPropagation();
+        if (this.authService.isLoggedIn()) {
+            const productQuantity = { ...product, quantity: this.quantity };
+            this._service.addToCart(productQuantity);
+        } else {
+            alert('Please log in to add product to cart');
+            this.router.navigate(['/login']).then();
         }
     }
 
     navigate() {
-      this.router.navigate(['/']).then()
+        this.router.navigate(['/']).then();
     }
 
-    buyNow(product: any){
-        if(this.authService.isLoggedIn()){
-            this._service.proceedCheckout(product);
-            this.router.navigate(['checkout']).then()
+    buyNow(product: any) {
+        if (this.authService.isLoggedIn()) {
+            const productQuantity = { ...product, quantity: this.quantity };
+            this._service.proceedCheckout(productQuantity);
+            this.router.navigate(['checkout']).then();
+        } else {
+            alert('Please log in to buy product(s).');
+            this.router.navigate(['/login']).then();
         }
-        else{
-            alert('Please Login to buy product(s).')
-            this.router.navigate(['/login']).then()
+    }
+
+    increaseQuantity(): void {
+        if (this.quantity < this.maxQuantity) {
+            this.quantity++;
+            this.message = '';
+        } else {
+            this.message = `Cannot increase quantity beyond ${this.maxQuantity}`;
+            setTimeout(() => {
+                this.message = '';
+            }, 3000);
+        }
+    }
+
+    decreaseQuantity(): void {
+        if (this.quantity > 1) {
+            this.quantity--;
+            this.message = '';
         }
     }
 }

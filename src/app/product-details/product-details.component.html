@@ -21,6 +21,16 @@
         <h1>{{ product.title | titlecase }}</h1>
         <p>{{product.description}}</p>
         <p class="price">${{ product.price }}</p>
+        <div class="quantity">
+            <button class="quantity-btn" (click)="decreaseQuantity()">
+                <i class="fa-solid fa-minus"></i>
+            </button>
+            <input id="quantity" name="quantity" value="1" readonly [(ngModel)]="quantity">
+            <button class="quantity-btn" (click)="increaseQuantity()">
+                <i class="fa-solid fa-plus"></i>
+            </button>
+        </div>
+        <p *ngIf="message" class="quantity-message">{{ message }}</p>
         <p><i class="fa-solid fa-star" style="color: #FFD43B;"></i> {{ product.rating.rate }} ({{ product.rating.count }})</p>
         <div class="btn">
             <div class="cart">
@@ -32,6 +42,8 @@
         </div>
     </div>
 </div>
+
+
 
 </body>
 </html>

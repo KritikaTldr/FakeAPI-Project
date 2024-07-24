@@ -17,7 +17,9 @@
                     <th>Product No.</th>
                     <th>Product</th>
                     <th>Image</th>
-                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Product Price</th>
+                    <th>Total Price</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -25,7 +27,9 @@
                     <td>{{ item.id }}</td>
                     <td>{{ item.title }}</td>
                     <td><img src="{{item.image}}" alt="image"></td>
+                    <td>{{ item.quantity }}</td>
                     <td>${{ item.price }}</td>
+                    <td>${{ item.price * item.quantity }}</td>
                 </tr>
                 </tbody>
             </table>
