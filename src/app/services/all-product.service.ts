@@ -35,22 +35,35 @@ export class AllProduct {
 
 
     addToCart(product: any) {
-        if (!this.itemExists([product.id])) {
-            this.cartItemList.push(product);
-            this.productTotalCartItems.next(this.cartItemList);
+        console.log(product, 'to add to cart');
+        const existingProduct = this.cartItemList.find((item: Product) => item.id === product.id);
+
+        if (existingProduct) {
+            existingProduct.quantity = product.quantity;
+            console.log('Updated product quantity in cart:', existingProduct);
             Swal.fire({
                 position: "top-end",
                 icon: "success",
-                title: "Product successfully added to your cart!",
+                title: "Product quantity updated in your cart!",
                 showConfirmButton: false,
                 timer: 1500
             });
-            console.log('Product added to cart:', this.cartItemList);
         } else {
-            console.log('Product already exists in cart:', product);
-            alert('Product already exists in cart!!!');
+            if (!this.itemExists([product.id])) {
+                this.cartItemList.push(product);
+                console.log('Product added to cart:', this.cartItemList);
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Product successfully added to your cart!",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
         }
+        this.productTotalCartItems.next(this.cartItemList);
     }
+
 
     proceedCheckout(items: any){
         this.selectedItems.push(items)

@@ -20,6 +20,13 @@ export class NavbarComponent implements OnInit {
     isloggedIn: boolean = false;
     public totalItem : number = 0;
 
+
+    constructor(
+        private router: Router,
+        private _service: AllProduct,
+    ) {
+    }
+
     ngOnInit() {
         this.authService.checkLogin.subscribe((res) => {
             this.isloggedIn = this.authService.isLoggedIn();
@@ -29,11 +36,6 @@ export class NavbarComponent implements OnInit {
         })
     }
 
-    constructor(
-        private router: Router,
-        private _service: AllProduct,
-    ) {
-    }
 
     navigate() {
         if (this.authService.isLoggedIn()) {
