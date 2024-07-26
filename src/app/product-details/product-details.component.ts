@@ -82,7 +82,7 @@ export class ProductDetailsComponent implements OnInit {
             this.quantity++;
             this.message = '';
         } else {
-            this.message = `Cannot increase quantity beyond ${this.maxQuantity}`;
+            this.message = `The quantity is limited to ${this.maxQuantity}.`;
             setTimeout(() => {
                 this.message = '';
             }, 3000);

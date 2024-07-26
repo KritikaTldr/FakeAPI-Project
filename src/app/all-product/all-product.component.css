@@ -62,7 +62,7 @@ body {
 .prodImg {
     width: 250px;
     height: 30vh;
-    object-fit: contain;
+    object-fit: scale-down;
 }
 
 .prodR{

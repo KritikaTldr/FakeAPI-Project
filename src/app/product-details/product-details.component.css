@@ -23,7 +23,9 @@
     max-width: 100%;
     border-radius: 10px;
     width: 400px;
-    height: auto;
+    height: 60vh;
+    object-fit: scale-down;
+    cursor: pointer;
 }
 
 .details {
@@ -36,7 +38,10 @@
     font-size: 2em;
 }
 
-
+.details p{
+    text-align: justify;
+    line-height: 1.6;
+}
 
 .price{
     font-size: 2em;
